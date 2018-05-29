@@ -18,9 +18,13 @@ public class Player : MonoBehaviour {
 
         movement();
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
         {
-            Instantiate(laserPrefab, transform.position + new Vector3(0, 0.95f, 0), Quaternion.identity);
+            if (Time.time > nextRate)
+            {
+                Instantiate(laserPrefab, transform.position + new Vector3(0, 0.95f, 0), Quaternion.identity);
+                nextRate = Time.time + fireRate;
+            }
         }
     }
 
