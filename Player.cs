@@ -20,14 +20,18 @@ public class Player : MonoBehaviour {
 
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
         {
-            if (Time.time > nextRate)
+            shoot();
+        }
+    }
+
+    private shoot()
+    {
+	if (Time.time > nextRate)
             {
                 Instantiate(laserPrefab, transform.position + new Vector3(0, 0.95f, 0), Quaternion.identity);
                 nextRate = Time.time + fireRate;
             }
-        }
     }
-
     private void movement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
