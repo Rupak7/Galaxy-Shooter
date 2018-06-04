@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour {
+    [SerializeField]
+    private GameObject _laserPrefab;
 
-    public GameObject laserPrefab;
+    public bool canTriple = false;
+
+    private float fireRate = 0.25f;
+    private float nextRate = 0.0f;
 
     public float speed = 5.0f;
 
@@ -24,14 +29,24 @@ public class Player : MonoBehaviour {
         }
     }
 
-    private shoot()
+    private void shoot()
     {
-	if (Time.time > nextRate)
+        if (Time.time > nextRate)
+        {
+            if (canTriple == true)
             {
-                Instantiate(laserPrefab, transform.position + new Vector3(0, 0.95f, 0), Quaternion.identity);
-                nextRate = Time.time + fireRate;
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.95f, 0), Quaternion.identity);
+                Instantiate(_laserPrefab, transform.position + new Vector3(-0.55f, -0.03f, 0), Quaternion.identity);
+                Instantiate(_laserPrefab, transform.position + new Vector3(0.57f, -0.04f, 0), Quaternion.identity);
             }
+            else
+            {
+                Instantiate(_laserPrefab, transform.position + new Vector3(0, 0.95f, 0), Quaternion.identity);
+            }
+            nextRate = Time.time + fireRate;
+        }
     }
+
     private void movement()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
